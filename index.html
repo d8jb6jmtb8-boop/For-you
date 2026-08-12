@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour toi, Francesca 💚</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #d9ff8a, #a8e063, #eaffb5);
+      color: #244018;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 25px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .page.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1 {
+      font-size: clamp(30px, 8vw, 55px);
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* ENVELOPPE */
+
+    .envelope-container {
+      cursor: pointer;
+      margin-bottom: 25px;
+      transition: transform .3s ease;
+    }
+
+    .envelope-container:hover {
+      transform: scale(1.05);
+    }
+
+    .envelope {
+      position: relative;
+      width: 280px;
+      height: 180px;
+      background: #f5fff0;
+      border-radius: 8px;
+      box-shadow: 0 15px 35px rgba(50, 90, 20, .25);
+      overflow: hidden;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #d5f5ae;
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      z-index: 3;
+      transition: transform .8s ease;
+      transform-origin: top;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+    }
+
+    .envelope::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #c7ed9c;
+      clip-path: polygon(0 100%, 50% 45%, 100% 100%);
+      z-index: 2;
+    }
+
+    .heart {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 42px;
+      transition: .5s ease;
+    }
+
+    .envelope.open .heart {
+      opacity: 0;
+      transform: translate(-50%, -100%) scale(0);
+    }
+
+    .envelope-label {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    /* BOUTONS */
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.06);
+      box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    }
+
+    .yes {
+      background: #4f9d32;
+      color: white;
+    }
+
+    .no {
+      background: #ffffff;
+      color: #50703b;
+    }
+
+    /* CARTE */
+
+    .card {
+      max-width: 650px;
+      width: 100%;
+      padding: 35px 25px;
+      background: rgba(255,255,255,.65);
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(50,80,20,.15);
+      backdrop-filter: blur(8px);
+    }
+
+    .emoji {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    .compliment {
+      margin-top: 20px;
+      font-size: 19px;
+    }
+
+    /* DATE */
+
+    input[type="date"] {
+      margin-top: 25px;
+      padding: 14px 18px;
+      border-radius: 15px;
+      border: 2px solid #91c56a;
+      font-size: 17px;
+      background: white;
+    }
+
+    .date-message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 5s infinite ease-in-out;
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    .f1 { top: 10%; left: 10%; font-size: 30px; }
+    .f2 { top: 20%; right: 12%; font-size: 25px; animation-delay: 1s; }
+    .f3 { bottom: 15%; left: 15%; font-size: 35px; animation-delay: 2s; }
+    .f4 { bottom: 10%; right: 15%; font-size: 25px; animation-delay: 3s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-20px) rotate(8deg); }
+    }
+
+    @media (max-width: 500px) {
+      .envelope {
+        width: 240px;
+        height: 155px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Décor -->
+  <div class="floating f1">💚</div>
+  <div class="floating f2">🌿</div>
+  <div class="floating f3">✨</div>
+  <div class="floating f4">💚</div>
+
+  <!-- MUSIQUE -->
+  <audio id="music" loop>
+    <source src="musique.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <!-- PAGE 1 -->
+  <section id="page1" class="page active">
+
+    <div class="envelope-container" onclick="openEnvelope()">
+
+      <div id="envelope" class="envelope">
+        <div class="heart">💌</div>
+      </div>
+
+      <div class="envelope-label">
+        Pour toi, Francesca 💚
+      </div>
+
+    </div>
+
+    <p>
+      J'ai quelque chose à te dire...
+    </p>
+
+  </section>
+
+
+  <!-- PAGE 2 -->
+  <section id="page2" class="page">
+
+    <div class="card">
+
+      <div class="emoji">🥺💚</div>
+
+      <h1>Je suis désolé, Francesca.</h1>
+
+      <p>
+        Je voulais simplement te dire que je suis franchement désolé
+        de t'avoir déçue.
+        <br><br>
+        Je sais que les mots ne peuvent pas toujours réparer les choses,
+        mais je tenais quand même à te présenter mes excuses.
+        <br><br>
+        J'espère sincèrement que tu pourras me pardonner.
+      </p>
+
+      <h2 style="margin-top:25px;">
+        Est-ce que tu peux me pardonner ? 🥺
+      </h2>
+
+      <div class="buttons">
+
+        <button class="yes" onclick="goToPage(3)">
+          Oui ❤️
+        </button>
+
+        <button class="no" id="noButton" onclick="sayNo()">
+          Non 😭
+        </button>
+
+      </div>
+
+      <p id="insistence" style="margin-top:20px;font-weight:bold;"></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 3 -->
+  <section id="page3" class="page">
+
+    <div class="card">
+
+      <div class="emoji">✨💚✨</div>
+
+      <h1>Parce que tu le mérites.</h1>
+
+      <p class="compliment">
+
+        Francesca, il faut quand même que je te dise quelque chose...
+
+        <br><br>
+
+        Tu es vraiment magnifique. ❤️
+
+        <br><br>
+
+        Tes yeux ont quelque chose de particulier,
+        ce genre de regard qu'on remarque facilement.
+
+        <br><br>
+
+        Ton sourire, ton teint, ton visage...
+        tout ça te donne un charme qui t'est propre.
+
+        <br><br>
+
+        Et au-delà de ta beauté,
+        c'est aussi la personne que tu es qui te rend spéciale.
+
+        <br><br>
+
+        Bref... tu es une très belle personne. 🥹💚
+
+      </p>
+
+      <div class="buttons">
+
+        <button class="yes" onclick="goToPage(4)">
+          Continuer 💚
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 4 -->
+  <section id="page4" class="page">
+
+    <div class="card">
+
+      <div class="emoji">📅💚</div>
+
+      <h1>On se capte ?</h1>
+
+      <p>
+
+        Maintenant que j'ai tout dit...
+
+        <br><br>
+
+        Est-ce qu'on pourrait se voir un de ces jours ?
+        Pas forcément maintenant, évidemment 😭
+
+        <br><br>
+
+        Choisis simplement une date qui pourrait te convenir. ❤️
+
+      </p>
+
+      <input type="date" id="date">
+
+      <div class="buttons">
+
+        <button class="yes" onclick="confirmDate()">
+          Ça me va 💚
+        </button>
+
+      </div>
+
+      <p id="dateMessage" class="date-message"></p>
+
+    </div>
+
+  </section>
+
+
+  <script>
+
+    let noClicks = 0;
+
+    function openEnvelope() {
+
+      const envelope = document.getElementById("envelope");
+      const music = document.getElementById("music");
+
+      envelope.classList.add("open");
+
+      // La musique commence après l'interaction de l'utilisateur
+      music.play().catch(() => {});
+
+      setTimeout(() => {
+        goToPage(2);
+      }, 1100);
+
+    }
+
+
+    function goToPage(number) {
+
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+      });
+
+      setTimeout(() => {
+        document.getElementById("page" + number).classList.add("active");
+      }, 100);
+
+    }
+
+
+    function sayNo() {
+
+      noClicks++;
+
+      const button = document.getElementById("noButton");
+      const message = document.getElementById("insistence");
+
+      const messages = [
+        "S'il te plaît 🥺",
+        "Tu es sûre ? 😭",
+        "Réfléchis encore un peu...",
+        "Allez Francesca 😭💚",
+        "Une petite chance ? 🥺",
+        "Je vais vraiment faire des efforts...",
+        "S'il te plaît, pardonne-moi ❤️",
+        "Dernière chance... enfin peut-être 😭",
+        "Je ne lâche pas 😭💚"
+      ];
+
+      message.textContent =
+        messages[Math.min(noClicks - 1, messages.length - 1)];
+
+      // Le bouton devient progressivement plus petit
+      if (noClicks > 2) {
+        button.style.transform =
+          `scale(${Math.max(0.55, 1 - noClicks * 0.06)})`;
+      }
+
+    }
+
+
+    function confirmDate() {
+
+      const dateInput = document.getElementById("date");
+      const message = document.getElementById("dateMessage");
+
+      if (!dateInput.value) {
+
+        message.textContent =
+          "Choisis d'abord une date 😭💚";
+
+        return;
+      }
+
+      const selectedDate = new Date(dateInput.value);
+
+      const formattedDate =
+        selectedDate.toLocaleDateString("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+
+      message.textContent =
+        "Alors c'est noté pour le " + formattedDate + " 💚🥹";
+
+    }
+
+  </script>
+
+</body>
+</html>
