@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d0f2d">
+
+<title>Pour toi, Francesca</title>
+
+<!-- Polices élégantes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --burgundy: #6d0f2d;
+    --burgundy-dark: #420719;
+    --burgundy-light: #8e2148;
+    --cream: #fff8f3;
+    --gold: #d7aa65;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    color: var(--cream);
+    font-family: "Cormorant Garamond", serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.08), transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.06), transparent 25%),
+        linear-gradient(135deg, #4a071c, #6d0f2d, #801b3d);
+}
+
+/* =========================
+   DÉCOR
+========================= */
+
+.background-glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.04);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.glow-one {
+    top: -100px;
+    left: -100px;
+}
+
+.glow-two {
+    bottom: -120px;
+    right: -100px;
+}
+
+.sparkle {
+    position: fixed;
+    color: rgba(255,255,255,.4);
+    font-size: 18px;
+    pointer-events: none;
+    animation: floating 5s ease-in-out infinite;
+}
+
+.s1 { top: 15%; left: 12%; }
+.s2 { top: 22%; right: 14%; animation-delay: 1s; }
+.s3 { bottom: 17%; left: 17%; animation-delay: 2s; }
+.s4 { bottom: 12%; right: 13%; animation-delay: 3s; }
+
+@keyframes floating {
+    0%,100% {
+        transform: translateY(0);
+        opacity: .3;
+    }
+
+    50% {
+        transform: translateY(-18px);
+        opacity: .7;
+    }
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    text-align: center;
+
+    opacity: 0;
+    transform: translateY(25px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.page.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   TYPOGRAPHIE
+========================= */
+
+.script {
+    font-family: "Allura", cursive;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: clamp(42px, 10vw, 72px);
+    line-height: 1;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: clamp(27px, 6vw, 40px);
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+p {
+    max-width: 650px;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.small-text {
+    font-size: 17px;
+    opacity: .8;
+}
+
+/* =========================
+   ENVELOPPE
+========================= */
+
+.envelope-wrapper {
+    cursor: pointer;
+    perspective: 1000px;
+    margin-bottom: 28px;
+}
+
+.envelope {
+    position: relative;
+
+    width: min(320px, 82vw);
+    height: 205px;
+
+    background: #f8eee8;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        inset 0 0 0 1px rgba(109,15,45,.15);
+
+    overflow: hidden;
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+}
+
+.envelope-wrapper:hover .envelope {
+    transform: translateY(-8px) rotate(-1deg);
+
+    box-shadow:
+        0 35px 70px rgba(0,0,0,.4);
+}
+
+/* rabat */
+
+.envelope-flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #ead8cf;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 55%
+    );
+
+    transform-origin: top;
+
+    z-index: 4;
+
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+/* plis */
+
+.envelope-left,
+.envelope-right {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #f1dfd7;
+
+    z-index: 2;
+}
+
+.envelope-left {
+    clip-path: polygon(
+        0 0,
+        50% 55%,
+        0 100%
+    );
+}
+
+.envelope-right {
+    clip-path: polygon(
+        100% 0,
+        50% 55%,
+        100% 100%
+    );
+}
+
+/* lettre */
+
+.letter {
+    position: absolute;
+
+    left: 50%;
+    bottom: 20px;
+
+    width: 72%;
+    height: 75%;
+
+    transform:
+        translateX(-50%)
+        translateY(50px);
+
+    background: white;
+
+    z-index: 1;
+
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.envelope.open .letter {
+    transform:
+        translateX(-50%)
+        translateY(-75px);
+}
+
+.letter-line {
+    width: 60%;
+    height: 2px;
+    background: #d7aa65;
+    margin: 45px auto 0;
+}
+
+.envelope-caption {
+    font-family: "Allura", cursive;
+    font-size: 32px;
+    margin-top: 18px;
+}
+
+/* =========================
+   CARTE
+========================= */
+
+.card {
+    width: min(700px, 94vw);
+
+    padding: 42px 30px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.06)
+        );
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.3);
+}
+
+.card p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================
+   BOUTONS
+========================= */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+
+    padding: 14px 30px;
+
+    border-radius: 50px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+button:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+.primary {
+    color: var(--burgundy-dark);
+    background: var(--cream);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.2);
+}
+
+.secondary {
+    color: var(--cream);
+    background: rgba(255,255,255,.12);
+
+    border: 1px solid rgba(255,255,255,.25);
+}
+
+#insistence {
+    min-height: 30px;
+    margin-top: 20px;
+
+    font-family: "Allura", cursive;
+
+    font-size: 28px;
+}
+
+/* =========================
+   FORMULAIRE
+========================= */
+
+textarea {
+    width: 100%;
+    min-height: 170px;
+
+    resize: vertical;
+
+    margin-top: 25px;
+    padding: 18px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    outline: none;
+
+    background: rgba(255,255,255,.12);
+
+    color: white;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 19px;
+}
+
+textarea::placeholder {
+    color: rgba(255,255,255,.7);
+}
+
+textarea:focus {
+    border-color: var(--gold);
+}
+
+/* =========================
+   DATE
+========================= */
+
+input[type="date"] {
+    display: block;
+
+    margin: 28px auto 0;
+
+    padding: 15px 20px;
+
+    border-radius: 15px;
+
+    border: none;
+
+    outline: none;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 18px;
+}
+
+#dateMessage {
+    margin-top: 20px;
+
+    font-family: "Allura", cursive;
+
+    font-size: 29px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .page {
+        padding: 18px;
+    }
+
+    .card {
+        padding: 30px 20px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .envelope {
+        height: 175px;
+    }
+
+    .envelope-caption {
+        font-size: 29px;
+    }
+
+    textarea {
+        min-height: 140px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
+
+<div class="sparkle s1">✦</div>
+<div class="sparkle s2">✧</div>
+<div class="sparkle s3">✦</div>
+<div class="sparkle s4">✧</div>
+
+
+<!-- =========================
+     MUSIQUE
+========================= -->
+
+<audio id="music" loop>
+    <source src="musique.mp3.m4a" type="audio/mp4">
+    Votre navigateur ne supporte pas la lecture audio.
+</audio>
+
+
+<!-- =========================
+     PAGE 1
+========================= -->
+
+<section id="page1" class="page active">
+
+    <div
+        class="envelope-wrapper"
+        onclick="openEnvelope()"
+        aria-label="Ouvrir la lettre"
+    >
+
+        <div id="envelope" class="envelope">
+
+            <div class="letter">
+                <div class="letter-line"></div>
+            </div>
+
+            <div class="envelope-left"></div>
+            <div class="envelope-right"></div>
+
+            <div class="envelope-flap"></div>
+
+        </div>
+
+        <div class="envelope-caption">
+            Pour toi, Francesca
+        </div>
+
+    </div>
+
+    <p class="small-text">
+        Une petite lettre que j'aimerais que tu ouvres...
+    </p>
+
+</section>
+
+
+<!-- =========================
+     PAGE 2 — EXCUSES
+========================= -->
+
+<section id="page2" class="page">
+
+    <div class="card">
+
+        <h1 class="script">
+            Francesca...
+        </h1>
+
+        <h2>
+            Je suis sincèrement désolé.
+        </h2>
+
+        <p>
+            Je voulais prendre le temps de te dire quelque chose
+            que j'aurais peut-être dû te dire plus tôt.
+            <br><br>
+
+            Je suis franchement désolé de t'avoir déçue.
+            Je ne vais pas chercher d'excuses ni essayer de minimiser
+            ce que tu as pu ressentir.
+            <br><br>
+
+            Je regrette vraiment ce qui s'est passé et j'aimerais
+            simplement pouvoir avoir l'occasion de faire mieux.
+        </p>
+
+        <h2 style="margin-top:30px;">
+            Est-ce que tu peux me pardonner ?
+        </h2>
+
+        <div class="buttons">
+
+            <button
+                class="primary"
+                onclick="goToPage(3)"
+            >
+                Oui
+            </button>
+
+            <button
+                class="secondary"
+                id="noButton"
+                onclick="sayNo()"
+            >
+                Non
+            </button>
+
+        </div>
+
+        <div id="insistence"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 3 — AVIS
+========================= -->
+
+<section id="page3" class="page">
+
+    <div class="card">
+
+        <h1 class="script">
+            Maintenant, sois honnête...
+        </h1>
+
+        <h2>
+            J'aimerais vraiment savoir ce que tu penses de moi.
+        </h2>
+
+        <p>
+            Pas la réponse que tu penses que j'ai envie d'entendre.
+            <br><br>
+
+            Dis-moi vraiment ce que tu penses de moi,
+            ce que tu ressens, ce que tu apprécies,
+            ce qui t'énerve éventuellement,
+            ou simplement ce que tu aimerais que je sache.
+            <br><br>
+
+            Tu peux être totalement sincère.
+        </p>
+
+        <form
+            action="https://formspree.io/f/xpqvkbyb"
+            method="POST"
+            style="width:100%;"
+        >
+
+            <textarea
+                name="message"
+                placeholder="Écris-moi vraiment ce que tu penses..."
+                required
+            ></textarea>
+
+            <input
+                type="hidden"
+                name="prenom"
+                value="Francesca"
+            >
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="Message de Francesca"
+            >
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="primary"
+                >
+                    Envoyer mon avis
+                </button>
+
+            </div>
+
+        </form>
+
+        <p class="small-text" style="margin-top:18px;">
+            Tu peux être honnête. Je veux vraiment savoir.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 4 — COMPLIMENTS
+========================= -->
+
+<section id="page4" class="page">
+
+    <div class="card">
+
+        <h1 class="script">
+            Et maintenant...
+        </h1>
+
+        <h2>
+            Quelques vérités sur toi.
+        </h2>
+
+        <p>
+            Francesca, tu es vraiment une très belle personne.
+            <br><br>
+
+            Tes yeux ont ce petit quelque chose qui attire
+            naturellement l'attention.
+            <br><br>
+
+            Ton sourire apporte une douceur particulière
+            à ton visage.
+            <br><br>
+
+            Ton teint, tes traits, ta façon de te présenter...
+            tout contribue à ce charme qui te rend unique.
+            <br><br>
+
+            Mais ce qui te rend réellement spéciale,
+            c'est que ta beauté ne s'arrête pas à ton apparence.
+            <br><br>
+
+            Tu as quelque chose que je ne saurais pas forcément
+            expliquer avec des mots.
+        </p>
+
+        <div class="buttons">
+
+            <button
+                class="primary"
+                onclick="goToPage(5)"
+            >
+                Continuer
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAGE 5 — RENDEZ-VOUS
+========================= -->
+
+<section id="page5" class="page">
+
+    <div class="card">
+
+        <h1 class="script">
+            On se capte ?
+        </h1>
+
+        <h2>
+            Quand tu seras disponible.
+        </h2>
+
+        <p>
+            Je ne te demande pas de te voir maintenant.
+            <br><br>
+
+            J'aimerais simplement qu'on puisse se retrouver
+            tranquillement un de ces jours.
+            <br><br>
+
+            Choisis une date qui pourrait te convenir.
+        </p>
+
+        <input
+            type="date"
+            id="date"
+        >
+
+        <div class="buttons">
+
+            <button
+                class="primary"
+                onclick="confirmDate()"
+            >
+                Ça me va
+            </button>
+
+        </div>
+
+        <p id="dateMessage"></p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function goToPage(number) {
+
+    const current =
+        document.querySelector(".page.active");
+
+    const next =
+        document.getElementById("page" + number);
+
+    if (!next) return;
+
+    current.classList.remove("active");
+
+    setTimeout(() => {
+        next.classList.add("active");
+    }, 150);
+}
+
+
+/* =========================
+   OUVERTURE ENVELOPPE
+========================= */
+
+function openEnvelope() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const music =
+        document.getElementById("music");
+
+    envelope.classList.add("open");
+
+    /*
+      Le navigateur autorise normalement
+      la lecture puisque l'utilisateur
+      vient de cliquer.
+    */
+
+    music.volume = 0.75;
+
+    music.play().catch(error => {
+        console.log("Lecture audio impossible :", error);
+    });
+
+    setTimeout(() => {
+        goToPage(2);
+    }, 1300);
+}
+
+
+/* =========================
+   BOUTON NON
+========================= */
+
+let noClicks = 0;
+
+function sayNo() {
+
+    noClicks++;
+
+    const message =
+        document.getElementById("insistence");
+
+    const button =
+        document.getElementById("noButton");
+
+    const messages = [
+
+        "S'il te plaît... 🥺",
+
+        "Tu es vraiment sûre ?",
+
+        "Réfléchis encore un peu...",
+
+        "Je te demande juste une petite chance.",
+
+        "Francesca... 🥺",
+
+        "Je vais vraiment faire des efforts.",
+
+        "Une dernière chance ?",
+
+        "Je ne veux pas abandonner comme ça.",
+
+        "S'il te plaît, pardonne-moi."
+
+    ];
+
+    message.textContent =
+        messages[
+            Math.min(
+                noClicks - 1,
+                messages.length - 1
+            )
+        ];
+
+    /*
+      Le bouton Non devient progressivement
+      moins imposant.
+    */
+
+    const scale =
+        Math.max(
+            0.55,
+            1 - noClicks * 0.055
+        );
+
+    button.style.transform =
+        `scale(${scale})`;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function confirmDate() {
+
+    const input =
+        document.getElementById("date");
+
+    const message =
+        document.getElementById("dateMessage");
+
+    if (!input.value) {
+
+        message.textContent =
+            "Choisis d'abord une date.";
+
+        return;
+    }
+
+    const date =
+        new Date(input.value + "T12:00:00");
+
+    const formatted =
+        date.toLocaleDateString(
+            "fr-FR",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    message.textContent =
+        "Alors... rendez-vous le " +
+        formatted +
+        ". 💚";
+
+}
+
+</script>
+
+</body>
+</html>
