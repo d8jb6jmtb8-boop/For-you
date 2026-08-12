@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FEE6B6">
+
+<title>Pour toi, Francesca</title>
+
+<!-- Polices -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   COULEURS
+========================================================= */
+
+:root {
+    --cream: #FEE6B6;
+    --cream-light: #FFF2D2;
+    --burgundy: #64152C;
+    --burgundy-dark: #42101F;
+    --burgundy-soft: #8B3450;
+    --white: #FFFDF8;
+    --gold: #A87532;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================================
+   FOND PRINCIPAL
+========================================================= */
+
+body {
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: #FEE6B6 !important;
+
+    color: #42101F;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+}
+
+
+/* =========================================================
+   DÉCOR DU FOND
+========================================================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.38),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(255,255,255,.25),
+            transparent 28%
+        );
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   PETITES ÉTOILES
+========================================================= */
+
+.decor {
+
+    position: fixed;
+
+    z-index: 1;
+
+    color:
+        rgba(100,21,44,.18);
+
+    font-size: 24px;
+
+    pointer-events: none;
+
+    animation:
+        floating 5s ease-in-out infinite;
+}
+
+.decor.one {
+    top: 12%;
+    left: 9%;
+}
+
+.decor.two {
+    top: 20%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+.decor.three {
+    bottom: 18%;
+    left: 12%;
+    animation-delay: 2s;
+}
+
+.decor.four {
+    bottom: 10%;
+    right: 13%;
+    animation-delay: 3s;
+}
+
+@keyframes floating {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: .25;
+    }
+
+    50% {
+        transform: translateY(-12px);
+        opacity: .65;
+    }
+}
+
+
+/* =========================================================
+   PAGES
+========================================================= */
+
+.page {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background: #FEE6B6 !important;
+
+    opacity: 0;
+
+    transform:
+        translateY(20px)
+        scale(.98);
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+}
+
+.page.active {
+
+    display: flex;
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   TYPOGRAPHIE
+========================================================= */
+
+h1 {
+
+    margin-bottom: 18px;
+
+    color:
+        var(--burgundy);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size:
+        clamp(55px, 12vw, 90px);
+
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+h2 {
+
+    margin-bottom: 20px;
+
+    color:
+        var(--burgundy);
+
+    font-size:
+        clamp(27px, 6vw, 42px);
+
+    font-weight: 600;
+}
+
+p {
+
+    max-width: 700px;
+
+    color:
+        var(--burgundy-dark);
+
+    font-size: 20px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PAGE SURPRISE
+========================================================= */
+
+.surprise-title {
+
+    margin-bottom: 12px;
+
+    color:
+        var(--burgundy);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size:
+        clamp(55px, 12vw, 85px);
+}
+
+.surprise-subtitle {
+
+    margin-bottom: 40px;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   ENVELOPPE
+========================================================= */
+
+.envelope-wrapper {
+
+    cursor: pointer;
+
+    perspective: 1200px;
+
+    transition:
+        transform .3s ease;
+}
+
+.envelope-wrapper:hover {
+
+    transform:
+        translateY(-7px);
+}
+
+.envelope {
+
+    position: relative;
+
+    width:
+        min(330px, 84vw);
+
+    height:
+        min(215px, 55vw);
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf9,
+            #ead8ca
+        );
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 25px 55px
+        rgba(100,21,44,.20);
+
+    overflow: hidden;
+}
+
+
+/* lettre */
+
+.letter {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 10px;
+
+    width: 72%;
+    height: 78%;
+
+    background:
+        #fffdfa;
+
+    transform:
+        translateX(-50%)
+        translateY(80px);
+
+    transition:
+        transform 1s
+        cubic-bezier(.2,.8,.2,1);
+
+    z-index: 2;
+}
+
+.envelope.open .letter {
+
+    transform:
+        translateX(-50%)
+        translateY(-75px);
+}
+
+
+/* ligne décorative */
+
+.letter-line {
+
+    width: 55%;
+    height: 2px;
+
+    margin: 40px auto;
+
+    background:
+        var(--gold);
+}
+
+
+/* plis */
+
+.fold-left,
+.fold-right {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        #efdcd0;
+
+    z-index: 3;
+}
+
+.fold-left {
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 55%,
+            0 100%
+        );
+}
+
+.fold-right {
+
+    clip-path:
+        polygon(
+            100% 0,
+            50% 55%,
+            100% 100%
+        );
+}
+
+
+/* rabat */
+
+.flap {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff9f3,
+            #e7d2c5
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 58%
+        );
+
+    transform-origin: top;
+
+    transition:
+        transform 1s
+        cubic-bezier(.2,.8,.2,1);
+
+    z-index: 5;
+}
+
+.envelope.open .flap {
+
+    transform:
+        rotateX(180deg);
+}
+
+
+/* nom */
+
+.envelope-name {
+
+    margin-top: 18px;
+
+    color:
+        var(--burgundy);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: 39px;
+}
+
+.small {
+
+    margin-top: 16px;
+
+    font-size: 16px;
+
+    opacity: .7;
+}
+
+
+/* =========================================================
+   CARTES
+========================================================= */
+
+.card {
+
+    width:
+        min(760px, 96vw);
+
+    max-height:
+        92vh;
+
+    overflow-y:
+        auto;
+
+    padding:
+        42px 32px;
+
+    background:
+        rgba(255,253,248,.38);
+
+    border:
+        1px solid
+        rgba(100,21,44,.13);
+
+    border-radius:
+        28px;
+
+    box-shadow:
+        0 25px 65px
+        rgba(100,21,44,.13);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+.card::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(100,21,44,.25);
+
+    border-radius:
+        20px;
+}
+
+
+/* =========================================================
+   BOUTONS
+========================================================= */
+
+.buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    margin-top: 30px;
+}
+
+button {
+
+    border: none;
+
+    border-radius:
+        50px;
+
+    padding:
+        14px 30px;
+
+    cursor: pointer;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 19px;
+
+    font-weight: 600;
+
+    transition:
+        .25s ease;
+}
+
+button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(100,21,44,.16);
+}
+
+.primary {
+
+    color:
+        white;
+
+    background:
+        var(--burgundy);
+}
+
+.secondary {
+
+    color:
+        var(--burgundy);
+
+    background:
+        rgba(255,255,255,.65);
+
+    border:
+        1px solid
+        rgba(100,21,44,.15);
+}
+
+button:disabled {
+
+    opacity: .6;
+
+    cursor:
+        not-allowed;
+}
+
+
+/* =========================================================
+   NON
+========================================================= */
+
+#insistence {
+
+    min-height: 45px;
+
+    margin-top: 18px;
+
+    color:
+        var(--burgundy);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: 31px;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+textarea {
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 180px;
+
+    margin-top: 22px;
+
+    padding: 18px;
+
+    resize: vertical;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(100,21,44,.20);
+
+    border-radius:
+        18px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    color:
+        var(--burgundy-dark);
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 19px;
+
+    line-height: 1.5;
+}
+
+textarea:focus {
+
+    border-color:
+        var(--burgundy);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(100,21,44,.07);
+}
+
+textarea::placeholder {
+
+    color:
+        rgba(66,16,31,.48);
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+input[type="date"] {
+
+    display: block;
+
+    margin:
+        25px auto 0;
+
+    padding:
+        14px 18px;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(100,21,44,.20);
+
+    border-radius:
+        14px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    color:
+        var(--burgundy-dark);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 18px;
+}
+
+#dateMessage {
+
+    margin-top: 20px;
+
+    color:
+        var(--burgundy);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: 30px;
+}
+
+
+/* =========================================================
+   QUESTIONNAIRE
+========================================================= */
+
+.quiz-intro {
+
+    margin-bottom: 20px;
+}
+
+.question {
+
+    margin-top: 27px;
+
+    padding: 20px;
+
+    text-align: left;
+
+    border:
+        1px solid
+        rgba(100,21,44,.10);
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.27);
+}
+
+.question-number {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        var(--burgundy);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: 30px;
+}
+
+.question-title {
+
+    display: block;
+
+    color:
+        var(--burgundy-dark);
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    line-height: 1.45;
+}
+
+.question textarea {
+
+    min-height: 130px;
+
+    margin-top: 14px;
+}
+
+.question.long textarea {
+
+    min-height: 180px;
+}
+
+.status {
+
+    min-height: 25px;
+
+    margin-top: 15px;
+
+    color:
+        var(--burgundy);
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   ANALYSE
+========================================================= */
+
+.analysis-box {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    text-align: left;
+
+    border:
+        1px solid
+        rgba(100,21,44,.12);
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(255,255,255,.40);
+}
+
+.analysis-box p {
+
+    font-size: 19px;
+}
+
+.emotions {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    font-size: 35px;
+
+    text-align: center;
+}
+
+.analysis-note {
+
+    margin-top: 20px;
+
+    font-size: 15px;
+
+    opacity: .65;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .page {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 30px 17px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .surprise-subtitle {
+        font-size: 18px;
+        margin-bottom: 28px;
+    }
+
+    .envelope {
+        height: 175px;
+    }
+
+    .envelope-name {
+        font-size: 32px;
+    }
+
+    .question {
+        padding: 16px;
+    }
+
+    .question-title {
+        font-size: 18px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     DÉCOR
+====================================================== -->
+
+<div class="decor one">✦</div>
+<div class="decor two">✧</div>
+<div class="decor three">✦</div>
+<div class="decor four">✧</div>
+
+
+<!-- ======================================================
+     MUSIQUE
+====================================================== -->
+
+<audio id="music" loop preload="auto">
+    <source
+        src="musique.mp3.m4a"
+        type="audio/mp4"
+    >
+</audio>
+
+
+<!-- ======================================================
+     PAGE 1
+====================================================== -->
+
+<section
+    id="page1"
+    class="page active"
+>
+
+    <div class="surprise-title">
+        C'est une surprise...
+    </div>
+
+    <p class="surprise-subtitle">
+        J'ai préparé quelque chose spécialement pour toi.
+    </p>
+
+
+    <div
+        class="envelope-wrapper"
+        onclick="openEnvelope()"
+    >
+
+        <div
+            id="envelope"
+            class="envelope"
+        >
+
+            <div class="letter">
+
+                <div class="letter-line"></div>
+
+            </div>
+
+            <div class="fold-left"></div>
+
+            <div class="fold-right"></div>
+
+            <div class="flap"></div>
+
+        </div>
+
+
+        <div class="envelope-name">
+            Pour toi, Francesca
+        </div>
+
+    </div>
+
+
+    <p class="small">
+        Clique sur la lettre pour ouvrir ta surprise.
+    </p>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 2 — EXCUSES
+====================================================== -->
+
+<section
+    id="page2"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Francesca...
+    </h1>
+
+    <h2>
+        Je suis sincèrement désolé.
+    </h2>
+
+    <p>
+
+        Je voulais prendre le temps de te dire
+        quelque chose que j'aurais peut-être dû
+        te dire plus tôt.
+
+        <br><br>
+
+        Je suis franchement désolé de t'avoir déçue.
+
+        <br><br>
+
+        Je ne veux pas chercher d'excuse
+        ni minimiser ce que tu as pu ressentir.
+
+        <br><br>
+
+        Je regrette sincèrement ce qui s'est passé
+        et j'aimerais pouvoir faire mieux.
+
+        <br><br>
+
+        J'espère que tu accepteras mes excuses.
+
+    </p>
+
+
+    <h2 style="margin-top:30px;">
+        Est-ce que tu peux me pardonner ?
+    </h2>
+
+
+    <div class="buttons">
+
+        <button
+            class="primary"
+            onclick="goToPage(3)"
+        >
+            Oui 🤍
+        </button>
+
+        <button
+            id="noButton"
+            class="secondary"
+            onclick="sayNo()"
+        >
+            Non
+        </button>
+
+    </div>
+
+
+    <div id="insistence"></div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 3 — AVIS
+====================================================== -->
+
+<section
+    id="page3"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Maintenant...
+    </h1>
+
+    <h2>
+        Dis-moi vraiment ce que tu penses de moi.
+    </h2>
+
+    <p>
+
+        Je ne veux pas forcément entendre
+        ce qui fait plaisir.
+
+        <br><br>
+
+        Je veux connaître ta vraie opinion.
+
+        <br><br>
+
+        Ce que tu apprécies chez moi,
+        ce qui t'a déçue,
+        ce que tu ressens,
+        ce que tu penses de moi aujourd'hui
+        ou ce que tu aimerais que je comprenne.
+
+        <br><br>
+
+        Tu peux être totalement sincère.
+
+    </p>
+
+
+    <form id="opinionForm">
+
+        <input
+            type="hidden"
+            name="Sujet"
+            value="Avis sincère de Francesca"
+        >
+
+        <input
+            type="hidden"
+            name="Question"
+            value="Que penses-tu réellement de moi ?"
+        >
+
+        <textarea
+            name="Réponse"
+            placeholder="Écris-moi vraiment ce que tu penses de moi..."
+            required
+        ></textarea>
+
+
+        <div class="buttons">
+
+            <button
+                type="submit"
+                class="primary"
+            >
+                Envoyer ma réponse
+            </button>
+
+        </div>
+
+        <p
+            id="opinionStatus"
+            class="status"
+        ></p>
+
+    </form>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 4 — COMPLIMENTS
+====================================================== -->
+
+<section
+    id="page4"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Quelques vérités...
+    </h1>
+
+    <p>
+
+        Francesca, tu es vraiment une très belle personne.
+
+        <br><br>
+
+        Tes yeux ont quelque chose de particulier,
+        un regard qu'on remarque facilement.
+
+        <br><br>
+
+        Ton sourire apporte une vraie douceur
+        à ton visage.
+
+        <br><br>
+
+        Ton teint, tes traits et ton charme
+        te rendent vraiment unique.
+
+        <br><br>
+
+        Mais ta beauté ne s'arrête évidemment
+        pas à ton apparence.
+
+        <br><br>
+
+        C'est aussi ta personnalité,
+        ta façon d'être et tout ce qui fait
+        que tu es toi qui te rendent spéciale.
+
+    </p>
+
+
+    <div class="buttons">
+
+        <button
+            class="primary"
+            onclick="goToPage(5)"
+        >
+            Continuer
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 5 — RENDEZ-VOUS
+====================================================== -->
+
+<section
+    id="page5"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        On se capte ?
+    </h1>
+
+    <h2>
+        Quand tu seras disponible.
+    </h2>
+
+    <p>
+
+        Je ne te demande pas de te voir maintenant.
+
+        <br><br>
+
+        J'aimerais simplement qu'on puisse
+        se retrouver tranquillement un de ces jours.
+
+        <br><br>
+
+        Choisis une date qui pourrait te convenir.
+
+    </p>
+
+
+    <input
+        type="date"
+        id="date"
+    >
+
+
+    <div class="buttons">
+
+        <button
+            class="primary"
+            onclick="confirmDate()"
+        >
+            Ça me va 🤍
+        </button>
+
+    </div>
+
+
+    <p id="dateMessage"></p>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 6 — MERCI
+====================================================== -->
+
+<section
+    id="page6"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Merci, Francesca.
+    </h1>
+
+    <h2>
+        Pour ton temps.
+    </h2>
+
+    <p>
+
+        Merci d'avoir pris le temps
+        de parcourir tout ce petit parcours.
+
+        <br><br>
+
+        Merci également pour ta sincérité.
+
+        <br><br>
+
+        J'ai encore une dernière chose
+        à te proposer.
+
+    </p>
+
+
+    <div class="buttons">
+
+        <button
+            class="primary"
+            onclick="goToPage(7)"
+        >
+            Continuer
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 7 — INTRO QUESTIONNAIRE
+====================================================== -->
+
+<section
+    id="page7"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Une dernière chose...
+    </h1>
+
+    <h2>
+        J'aimerais comprendre ce que tu ressens aujourd'hui.
+    </h2>
+
+    <p>
+
+        Je vais te poser quelques questions.
+
+        <br><br>
+
+        Il n'y a aucune bonne ou mauvaise réponse.
+
+        <br><br>
+
+        Écris simplement ce que tu ressens
+        réellement, avec tes propres mots.
+
+        <br><br>
+
+        Prends ton temps.
+
+    </p>
+
+
+    <div class="buttons">
+
+        <button
+            class="primary"
+            onclick="goToPage(8)"
+        >
+            Commencer
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 8 — QUESTIONNAIRE
+====================================================== -->
+
+<section
+    id="page8"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Ton questionnaire
+    </h1>
+
+    <p class="quiz-intro">
+
+        Réponds librement.
+        Je veux surtout comprendre tes propres mots.
+
+    </p>
+
+
+    <form id="quizForm">
+
+
+        <!-- 01 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 01
+            </span>
+
+            <span class="question-title">
+                Comment te sens-tu réellement aujourd'hui,
+                émotionnellement ?
+            </span>
+
+            <textarea
+                name="Question_01"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 02 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 02
+            </span>
+
+            <span class="question-title">
+                Quand tu repenses à notre histoire,
+                quelle est la première émotion qui te vient ?
+            </span>
+
+            <textarea
+                name="Question_02"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 03 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 03
+            </span>
+
+            <span class="question-title">
+                Est-ce que ce que j'ai fait dans le passé
+                t'affecte encore aujourd'hui ?
+                Explique-moi pourquoi.
+            </span>
+
+            <textarea
+                name="Question_03"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 04 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 04
+            </span>
+
+            <span class="question-title">
+                Est-ce que tu penses encore à moi ?
+                Si oui, dans quelles circonstances ?
+            </span>
+
+            <textarea
+                name="Question_04"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 05 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 05
+            </span>
+
+            <span class="question-title">
+                Si je disparaissais complètement
+                de ta vie, qu'est-ce que tu ressentirais réellement ?
+            </span>
+
+            <textarea
+                name="Question_05"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 06 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 06
+            </span>
+
+            <span class="question-title">
+                Est-ce que tu aimerais encore avoir
+                une place pour moi dans ta vie ?
+                Pourquoi ?
+            </span>
+
+            <textarea
+                name="Question_06"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 07 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 07
+            </span>
+
+            <span class="question-title">
+                Lorsque tu vas mal, est-ce que tu aimerais
+                pouvoir compter sur moi ?
+            </span>
+
+            <textarea
+                name="Question_07"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 08 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 08
+            </span>
+
+            <span class="question-title">
+                Est-ce que tu penses avoir complètement
+                tourné la page de notre histoire ?
+                Explique.
+            </span>
+
+            <textarea
+                name="Question_08"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 09 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 09
+            </span>
+
+            <span class="question-title">
+                Si nous recommencions à beaucoup nous parler,
+                comment penses-tu que tu te sentirais ?
+            </span>
+
+            <textarea
+                name="Question_09"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 10
+            </span>
+
+            <span class="question-title">
+                Qu'est-ce que tu aimerais réellement
+                recevoir de moi aujourd'hui ?
+            </span>
+
+            <textarea
+                name="Question_10"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div class="question">
+
+            <span class="question-number">
+                Question 11
+            </span>
+
+            <span class="question-title">
+                Est-ce que tu te sens capable d'avancer
+                complètement sans moi ? Pourquoi ?
+            </span>
+
+            <textarea
+                name="Question_11"
+                placeholder="Ta réponse..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div class="question long">
+
+            <span class="question-number">
+                Question 12
+            </span>
+
+            <span class="question-title">
+                Si tu pouvais me dire une chose que tu n'as
+                jamais osé me dire, qu'est-ce que ce serait ?
+            </span>
+
+            <textarea
+                name="Question_12"
+                placeholder="Écris absolument tout ce que tu veux..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- Ce champ contiendra le questionnaire complet -->
+
+        <input
+            type="hidden"
+            id="questionnaireComplet"
+            name="Questionnaire_complet"
+        >
+
+
+        <button
+            type="submit"
+            class="primary"
+            id="quizButton"
+        >
+            Terminer le questionnaire
+        </button>
+
+
+        <p
+            id="quizStatus"
+            class="status"
+        ></p>
+
+    </form>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PAGE 9 — ANALYSE
+====================================================== -->
+
+<section
+    id="page9"
+    class="page"
+>
+
+<div class="card">
+
+    <h1>
+        Merci pour ta sincérité.
+    </h1>
+
+    <h2 id="analysisTitle">
+        Voici ce que tes réponses semblent montrer.
+    </h2>
+
+
+    <div class="analysis-box">
+
+        <p id="analysisText"></p>
+
+        <div
+            id="emotions"
+            class="emotions"
+        ></div>
+
+    </div>
+
+
+    <p class="analysis-note">
+
+        Cette analyse est une lecture indicative
+        de tes réponses et de leurs thèmes.
+        Elle ne constitue pas un diagnostic psychologique
+        et ne peut pas déterminer à elle seule
+        si quelqu'un a besoin de son ex.
+
+    </p>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   FORMSPREE
+========================================================= */
+
+const FORMSPREE_URL =
+    "https://formspree.io/f/xpqvkbyb";
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goToPage(number) {
+
+    const current =
+        document.querySelector(".page.active");
+
+    const next =
+        document.getElementById(
+            "page" + number
+        );
+
+    if (!next) {
+        return;
+    }
+
+
+    current.classList.remove("active");
+
+
+    setTimeout(() => {
+
+        next.classList.add("active");
+
+    }, 120);
+}
+
+
+/* =========================================================
+   ENVELOPPE
+========================================================= */
+
+let envelopeOpened = false;
+
+function openEnvelope() {
+
+    if (envelopeOpened) {
+        return;
+    }
+
+    envelopeOpened = true;
+
+
+    const envelope =
+        document.getElementById(
+            "envelope"
+        );
+
+
+    const music =
+        document.getElementById(
+            "music"
+        );
+
+
+    envelope.classList.add("open");
+
+
+    /*
+       Le clic sur l'enveloppe constitue
+       une interaction utilisateur.
+       Le navigateur autorise donc normalement
+       le lancement de la musique.
+    */
+
+    music.volume = 0.75;
+
+    music.play().catch(() => {
+
+        console.log(
+            "Le navigateur a bloqué la lecture automatique."
+        );
+
+    });
+
+
+    setTimeout(() => {
+
+        goToPage(2);
+
+    }, 1300);
+}
+
+
+/* =========================================================
+   BOUTON NON
+========================================================= */
+
+let noClicks = 0;
+
+const noMessages = [
+
+    "S'il te plaît... 🥺",
+
+    "Tu es vraiment sûre ?",
+
+    "Réfléchis encore un peu...",
+
+    "Donne-moi juste une petite chance.",
+
+    "Francesca... 🥺",
+
+    "Je suis vraiment désolé.",
+
+    "Une dernière chance ?",
+
+    "Je comprends si tu hésites...",
+
+    "Mais j'aimerais vraiment être pardonné. 🤍"
+
+];
+
+
+function sayNo() {
+
+    noClicks++;
+
+
+    const message =
+        document.getElementById(
+            "insistence"
+        );
+
+
+    message.textContent =
+        noMessages[
+            Math.min(
+                noClicks - 1,
+                noMessages.length - 1
+            )
+        ];
+
+
+    /*
+       Le bouton reste disponible :
+       la décision finale lui appartient.
+    */
+
+    const button =
+        document.getElementById(
+            "noButton"
+        );
+
+
+    const scale =
+        Math.max(
+            .75,
+            1 - noClicks * .025
+        );
+
+
+    button.style.transform =
+        `scale(${scale})`;
+}
+
+
+/* =========================================================
+   AVIS SINCÈRE → FORMSPREE
+========================================================= */
+
+const opinionForm =
+    document.getElementById(
+        "opinionForm"
+    );
+
+
+opinionForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const status =
+            document.getElementById(
+                "opinionStatus"
+            );
+
+
+        const button =
+            opinionForm.querySelector(
+                "button"
+            );
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Envoi en cours...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    FORMSPREE_URL,
+                    {
+                        method: "POST",
+
+                        body:
+                            new FormData(
+                                opinionForm
+                            ),
+
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+                throw new Error();
+            }
+
+
+            status.textContent =
+                "Réponse envoyée 🤍";
+
+
+            setTimeout(() => {
+
+                goToPage(4);
+
+            }, 1000);
+
+
+        } catch (error) {
+
+            status.textContent =
+                "Erreur d'envoi. Vérifie ta connexion et réessaie.";
+
+            button.disabled = false;
+
+            button.textContent =
+                "Envoyer ma réponse";
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RENDEZ-VOUS
+========================================================= */
+
+async function confirmDate() {
+
+    const dateInput =
+        document.getElementById(
+            "date"
+        );
+
+
+    const message =
+        document.getElementById(
+            "dateMessage"
+        );
+
+
+    if (!dateInput.value) {
+
+        message.textContent =
+            "Choisis d'abord une date.";
+
+        return;
+    }
+
+
+    const date =
+        new Date(
+            dateInput.value +
+            "T12:00:00"
+        );
+
+
+    const formatted =
+        date.toLocaleDateString(
+            "fr-FR",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+    message.textContent =
+        "Rendez-vous proposé pour le " +
+        formatted +
+        " 🤍";
+
+
+    /*
+       Envoi de la proposition de rendez-vous
+       dans ton Formspree.
+    */
+
+    const appointmentData =
+        new FormData();
+
+
+    appointmentData.append(
+        "Sujet",
+        "Proposition de rendez-vous"
+    );
+
+
+    appointmentData.append(
+        "Question",
+        "Quelle date te conviendrait pour qu'on se voie ?"
+    );
+
+
+    appointmentData.append(
+        "Réponse",
+        formatted
+    );
+
+
+    try {
+
+        await fetch(
+            FORMSPREE_URL,
+            {
+                method: "POST",
+
+                body:
+                    appointmentData,
+
+                headers: {
+                    "Accept":
+                        "application/json"
+                }
+            }
+        );
+
+    } catch (error) {
+
+        console.log(
+            "La date n'a pas pu être envoyée."
+        );
+
+    }
+
+
+    setTimeout(() => {
+
+        goToPage(6);
+
+    }, 1800);
+}
+
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+const questions = [
+
+    "Comment te sens-tu réellement aujourd'hui, émotionnellement ?",
+
+    "Quand tu repenses à notre histoire, quelle est la première émotion qui te vient ?",
+
+    "Est-ce que ce que j'ai fait dans le passé t'affecte encore aujourd'hui ? Explique-moi pourquoi.",
+
+    "Est-ce que tu penses encore à moi ? Si oui, dans quelles circonstances ?",
+
+    "Si je disparaissais complètement de ta vie, qu'est-ce que tu ressentirais réellement ?",
+
+    "Est-ce que tu aimerais encore avoir une place pour moi dans ta vie ? Pourquoi ?",
+
+    "Lorsque tu vas mal, est-ce que tu aimerais pouvoir compter sur moi ?",
+
+    "Est-ce que tu penses avoir complètement tourné la page de notre histoire ? Explique.",
+
+    "Si nous recommencions à beaucoup nous parler, comment penses-tu que tu te sentirais ?",
+
+    "Qu'est-ce que tu aimerais réellement recevoir de moi aujourd'hui ?",
+
+    "Est-ce que tu te sens capable d'avancer complètement sans moi ? Pourquoi ?",
+
+    "Si tu pouvais me dire une chose que tu n'as jamais osé me dire, qu'est-ce que ce serait ?"
+
+];
+
+
+/* =========================================================
+   ANALYSE
+========================================================= */
+
+function analyzeAnswers(answers) {
+
+    const text =
+        answers
+            .join(" ")
+            .toLowerCase();
+
+
+    const emotionalWords = [
+
+        "triste",
+        "tristesse",
+        "douleur",
+        "mal",
+        "blessé",
+        "blessée",
+        "souffrance",
+        "souffrir",
+        "manque",
+        "manquer",
+        "nostalgie",
+        "nostalgique",
+        "regret",
+        "regrets",
+        "affecte",
+        "affectée",
+        "difficile"
+
+    ];
+
+
+    const attachmentWords = [
+
+        "amour",
+        "aimer",
+        "attaché",
+        "attachée",
+        "sentiment",
+        "sentiments",
+        "présence",
+        "besoin",
+        "manque",
+        "manquer",
+        "penser",
+        "pense",
+        "souvenir",
+        "souvenirs",
+        "important",
+        "importante",
+        "revenir",
+        "retour"
+
+    ];
+
+
+    const independenceWords = [
+
+        "avancer",
+        "indépendant",
+        "indépendante",
+        "indépendance",
+        "tourner la page",
+        "oublié",
+        "oubliée",
+        "oublier",
+        "paix",
+        "heureux",
+        "heureuse",
+        "bien",
+        "serein",
+        "sereine",
+        "nouvelle vie"
+
+    ];
+
+
+    let emotional = 0;
+    let attachment = 0;
+    let independence = 0;
+
+
+    emotionalWords.forEach(word => {
+
+        if (text.includes(word)) {
+            emotional++;
+        }
+
+    });
+
+
+    attachmentWords.forEach(word => {
+
+        if (text.includes(word)) {
+            attachment++;
+        }
+
+    });
+
+
+    independenceWords.forEach(word => {
+
+        if (text.includes(word)) {
+            independence++;
+        }
+
+    });
+
+
+    return {
+        emotional,
+        attachment,
+        independence
+    };
+}
+
+
+/* =========================================================
+   AFFICHER L'ANALYSE
+========================================================= */
+
+function showAnalysis(answers) {
+
+    const score =
+        analyzeAnswers(
+            answers
+        );
+
+
+    const title =
+        document.getElementById(
+            "analysisTitle"
+        );
+
+
+    const text =
+        document.getElementById(
+            "analysisText"
+        );
+
+
+    const emotions =
+        document.getElementById(
+            "emotions"
+        );
+
+
+    /*
+       Beaucoup d'émotions + attachement
+    */
+
+    if (
+        score.emotional >= 3 &&
+        score.attachment >= 3
+    ) {
+
+        title.textContent =
+            "Il semble rester beaucoup d'émotions. 💭";
+
+
+        text.innerHTML = `
+
+            Tes réponses semblent montrer que
+            notre histoire garde encore une place
+            émotionnelle importante pour toi.
+
+            <br><br>
+
+            Certains souvenirs ou certaines blessures
+            semblent encore avoir un impact.
+
+            <br><br>
+
+            On retrouve également plusieurs signes
+            d'attachement ou d'importance accordée
+            à notre lien.
+
+            <br><br>
+
+            Cela ne signifie pas que tu as besoin de moi
+            pour avancer. Cela montre simplement que
+            cette histoire semble encore compter
+            émotionnellement pour toi.
+
+        `;
+
+
+        emotions.textContent =
+            "🥺 💭 ❤️‍🩹 🫶 🌙";
+
+    }
+
+
+    /*
+       Attachement + indépendance
+    */
+
+    else if (
+        score.attachment >= 3 &&
+        score.independence >= 2
+    ) {
+
+        title.textContent =
+            "Notre lien semble encore compter pour toi. 🤍";
+
+
+        text.innerHTML = `
+
+            Tes réponses semblent montrer
+            que tu accordes encore une certaine
+            importance à notre lien.
+
+            <br><br>
+
+            Mais certaines réponses montrent aussi
+            que tu sembles capable d'avancer
+            de ton côté.
+
+            <br><br>
+
+            Tu peux donc apprécier ma présence
+            sans nécessairement dépendre de moi.
+
+        `;
+
+
+        emotions.textContent =
+            "🤍 💭 🫶 ✨ 🌿";
+
+    }
+
+
+    /*
+       Blessure / émotion sans attachement fort
+    */
+
+    else if (
+        score.emotional >= 3
+    ) {
+
+        title.textContent =
+            "Le passé semble encore t'avoir marquée. ❤️‍🩹";
+
+
+        text.innerHTML = `
+
+            Certaines de tes réponses semblent indiquer
+            que ce qui s'est passé entre nous t'a encore
+            laissée avec certaines émotions.
+
+            <br><br>
+
+            Mais ressentir encore une blessure
+            ne signifie pas forcément vouloir
+            retrouver une relation.
+
+            <br><br>
+
+            Tu peux avoir été profondément affectée
+            tout en ayant envie d'avancer.
+
+        `;
+
+
+        emotions.textContent =
+            "💭 🥀 ❤️‍🩹 🌙";
+
+    }
+
+
+    /*
+       Indépendance
+    */
+
+    else {
+
+        title.textContent =
+            "Tu sembles avoir beaucoup avancé. 🌿";
+
+
+        text.innerHTML = `
+
+            Dans l'ensemble, tes réponses semblent
+            montrer une certaine distance émotionnelle
+            par rapport à notre ancienne histoire.
+
+            <br><br>
+
+            Tu sembles davantage capable de construire
+            ton chemin indépendamment de cette relation.
+
+            <br><br>
+
+            Cela ne signifie pas que notre histoire
+            n'a jamais compté.
+
+            <br><br>
+
+            Cela signifie simplement que tu sembles
+            aujourd'hui davantage capable d'avancer
+            de ton côté.
+
+        `;
+
+
+        emotions.textContent =
+            "🌿 🕊️ ✨ 🤍";
+
+    }
+
+}
+
+
+/* =========================================================
+   QUESTIONNAIRE → FORMSPREE
+========================================================= */
+
+const quizForm =
+    document.getElementById(
+        "quizForm"
+    );
+
+
+quizForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const button =
+            document.getElementById(
+                "quizButton"
+            );
+
+
+        const status =
+            document.getElementById(
+                "quizStatus"
+            );
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Envoi en cours...";
+
+
+        const answers = [];
+
+
+        /*
+           Vérification + récupération
+           des 12 réponses.
+        */
+
+        for (
+            let i = 1;
+            i <= 12;
+            i++
+        ) {
+
+            const number =
+                String(i).padStart(
+                    2,
+                    "0"
+                );
+
+
+            const field =
+                quizForm.querySelector(
+                    `[name="Question_${number}"]`
+                );
+
+
+            const answer =
+                field.value.trim();
+
+
+            answers.push(answer);
+        }
+
+
+        /*
+           Création du mail :
+           chaque question est suivie
+           directement de sa réponse.
+        */
+
+        let completeMessage = "";
+
+
+        questions.forEach(
+            (question, index) => {
+
+                completeMessage +=
+
+                    "\n\n" +
+
+                    "════════════════════\n" +
+
+                    "QUESTION " +
+                    String(
+                        index + 1
+                    ).padStart(2,"0") +
+
+                    "\n" +
+
+                    question +
+
+                    "\n\n" +
+
+                    "RÉPONSE :\n" +
+
+                    answers[index];
+
+            }
+        );
+
+
+        document.getElementById(
+            "questionnaireComplet"
+        ).value =
+            completeMessage;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    FORMSPREE_URL,
+                    {
+                        method: "POST",
+
+                        body:
+                            new FormData(
+                                quizForm
+                            ),
+
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+                throw new Error(
+                    "Formspree error"
+                );
+            }
+
+
+            status.textContent =
+                "Tes réponses ont bien été envoyées. 🤍";
+
+
+            setTimeout(() => {
+
+                showAnalysis(
+                    answers
+                );
+
+
+                goToPage(9);
+
+            }, 1200);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            status.textContent =
+                "Une erreur est survenue. Vérifie ta connexion puis réessaie.";
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Terminer le questionnaire";
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
